@@ -1,11 +1,13 @@
 <template>
-  <div>
+  <div style="width: inherit">
     <DoubleLayout>
       <template v-slot:left>
-        <OptionEdit></OptionEdit>
+        <OptionEdit :option="option"></OptionEdit>
       </template>
       <template v-slot:right>
-        <EchartsCard></EchartsCard>
+        <div style="margin-top: 20vh; margin-left: 20px">
+          <EchartsCard :option="option"></EchartsCard>
+        </div>
       </template>
     </DoubleLayout>
   </div>
@@ -15,13 +17,24 @@
 import DoubleLayout from "./layout/doubleLayout.vue";
 import OptionEdit from "../components/optionEdit.vue";
 import EchartsCard from "../components/echartsCard.vue";
+let option = {
+  title: {
+    text: "ECharts 入门示例",
+  },
+  tooltip: {},
+  legend: {
+    data: ["销量"],
+  },
+  xAxis: {
+    data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"],
+  },
+  yAxis: {},
+  series: [
+    {
+      name: "销量",
+      type: "bar",
+      data: [5, 20, 36, 10, 10, 20],
+    },
+  ],
+};
 </script>
-<style>
-@media (min-width: 1024px) {
-  .about {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-  }
-}
-</style>
