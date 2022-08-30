@@ -1,6 +1,5 @@
 <template>
   <div>
-    {{ option }}
     <Codemirror :doc="option"></Codemirror>
   </div>
 </template>

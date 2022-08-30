@@ -1,6 +1,8 @@
 <template>
-  <hr />
-  <div ref="textarea" style="width: 100%; height: 500px"></div>
+  <div class="toolBar">
+    <el-button>发布</el-button>
+  </div>
+  <div ref="textarea" class="w-full h-500"></div>
 </template>
 
 <script lang="ts" setup>
@@ -8,7 +10,8 @@ import { EditorState } from "@codemirror/state";
 import { EditorView, keymap } from "@codemirror/view";
 import { defaultKeymap } from "@codemirror/commands";
 
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watchEffect } from "vue";
+import { time } from "echarts";
 
 const props = defineProps({
   doc: Object,
@@ -27,8 +30,20 @@ onMounted(() => {
     state: startState,
     parent: textarea.value,
   });
-  console.log("textarea", textarea);
+
+  // 监听输入，同步获取编辑器中的数据
+  const stop = watchEffect(() => {
+    setTimeout(() => {
+      console.log("options update:", JSON.parse(String(view.state.doc)));
+    }, 3000);
+  });
 });
 </script>
 
-<style></style>
+<style>
+.toolBar {
+  background-color: aquamarine;
+  display: flex;
+  justify-content: flex-end;
+}
+</style>
