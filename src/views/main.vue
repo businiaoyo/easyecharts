@@ -2,11 +2,11 @@
   <div style="width: inherit">
     <DoubleLayout>
       <template v-slot:left>
-        <OptionEdit :option="option"></OptionEdit>
+        <OptionEdit :option="options" :re-run="reRun"></OptionEdit>
       </template>
       <template v-slot:right>
         <div style="margin-top: 20vh; margin-left: 20px">
-          <EchartsCard :option="option"></EchartsCard>
+          <EchartsCard :option="options"></EchartsCard>
         </div>
       </template>
     </DoubleLayout>
@@ -17,7 +17,8 @@
 import DoubleLayout from "./layout/doubleLayout.vue";
 import OptionEdit from "../components/optionEdit.vue";
 import EchartsCard from "../components/echartsCard.vue";
-let option = {
+import { reactive } from "vue";
+let options: Object = reactive({
   title: {
     text: "ECharts 入门示例",
   },
@@ -36,5 +37,8 @@ let option = {
       data: [5, 20, 36, 10, 10, 20],
     },
   ],
+});
+const reRun: (option: Object) => void = (option) => {
+  options = option;
 };
 </script>

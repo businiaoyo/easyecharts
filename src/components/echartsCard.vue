@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import * as echarts from "echarts";
 import { ref } from "vue";
-import { onMounted } from "vue";
+import { onMounted, watch } from "vue";
 
 interface Props {
   option: any;
 }
-const { option } = defineProps<Props>();
+const props = defineProps<Props>();
+const { option } = props;
+
 const map = ref(null);
 
 onMounted(() => {
@@ -16,6 +18,12 @@ onMounted(() => {
     myChart.setOption(option);
   }
 });
+watch(
+  () => props.option as Object,
+  (newVal, oldVal) => {
+    console.log("option updated");
+  }
+);
 </script>
 
 <template>
