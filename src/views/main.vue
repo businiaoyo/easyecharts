@@ -17,7 +17,7 @@
 import DoubleLayout from "./layout/doubleLayout.vue";
 import OptionEdit from "../components/optionEdit.vue";
 import EchartsCard from "../components/echartsCard.vue";
-import { reactive } from "vue";
+import { reactive, ref } from "vue";
 let options: Object = reactive({
   title: {
     text: "ECharts 入门示例",
@@ -39,6 +39,6 @@ let options: Object = reactive({
   ],
 });
 const reRun: (option: Object) => void = (option) => {
-  options = option;
+  Object.assign(options, option);
 };
 </script>

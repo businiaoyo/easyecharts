@@ -11,18 +11,19 @@ const { option } = props;
 
 const map = ref(null);
 
+let myChart: echarts.ECharts;
 onMounted(() => {
   if (map.value) {
-    let myChart = echarts.init(map.value);
-    console.log(myChart);
+    myChart = echarts.init(map.value);
     myChart.setOption(option);
   }
 });
 watch(
-  () => props.option as Object,
-  (newVal, oldVal) => {
-    console.log("option updated");
-  }
+  () => props.option,
+  (newVal) => {
+    myChart.setOption(newVal);
+  },
+  { deep: true }
 );
 </script>
 
