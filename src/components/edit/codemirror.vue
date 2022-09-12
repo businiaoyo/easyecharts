@@ -14,6 +14,18 @@ import { EditorState } from "@codemirror/state";
 import { EditorView, keymap } from "@codemirror/view";
 import { defaultKeymap } from "@codemirror/commands";
 import { ref, onMounted, watchEffect, reactive } from "vue";
+import {
+  oneDarkTheme,
+  oneDarkHighlightStyle,
+} from "@codemirror/theme-one-dark";
+import { tags } from "@lezer/highlight";
+import { HighlightStyle } from "@codemirror/language";
+import { syntaxHighlighting } from "@codemirror/language";
+
+const myHighlightStyle = HighlightStyle.define([
+  { tag: tags.keyword, color: "#fc6" },
+  { tag: tags.comment, color: "#f5d", fontStyle: "italic" },
+]);
 
 const props = defineProps({
   doc: Object,
@@ -22,12 +34,13 @@ const props = defineProps({
 const { doc, submit } = props;
 
 let textarea = ref();
+let view: any = reactive({});
+
 let startState = EditorState.create({
   doc: JSON.stringify(doc, null, "\t"),
-  extensions: [keymap.of(defaultKeymap)],
+  extensions: [syntaxHighlighting(myHighlightStyle), keymap.of(defaultKeymap)],
 });
 
-let view: any = reactive({});
 onMounted(() => {
   view = new EditorView({
     state: startState,
