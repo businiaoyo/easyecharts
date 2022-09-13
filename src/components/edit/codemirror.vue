@@ -11,6 +11,7 @@
 
 <script lang="ts" setup>
 import { EditorState } from "@codemirror/state";
+import { javascript } from "@codemirror/lang-javascript";
 import { EditorView, keymap } from "@codemirror/view";
 import { defaultKeymap } from "@codemirror/commands";
 import { ref, onMounted, watchEffect, reactive } from "vue";
@@ -38,7 +39,12 @@ let view: any = reactive({});
 
 let startState = EditorState.create({
   doc: JSON.stringify(doc, null, "\t"),
-  extensions: [syntaxHighlighting(myHighlightStyle), keymap.of(defaultKeymap)],
+  extensions: [
+    oneDarkTheme,
+    javascript(),
+    syntaxHighlighting(oneDarkHighlightStyle),
+    keymap.of(defaultKeymap),
+  ],
 });
 
 onMounted(() => {
